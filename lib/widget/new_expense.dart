@@ -5,8 +5,9 @@ import 'button.dart';
 import 'textfield.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
-
+  const NewExpense({
+    super.key,
+  });
   @override
   State<NewExpense> createState() => _NewExpenseState();
 }
@@ -17,11 +18,31 @@ class _NewExpenseState extends State<NewExpense> {
   DateTime? selectedDate;
   Category selectedCategory = Category.leisure;
 
-  @override
-  void dispose() {
-    titleController.dispose();
-    amountController.dispose();
-    super.dispose();
+  void _onExpenseSubmitted() {
+    final enteredAmount = double.tryParse(amountController.text);
+    final amountIsInvalid = enteredAmount == null || (enteredAmount <= 0);
+    if (titleController.text.trim().isEmpty ||
+        amountIsInvalid ||
+        selectedDate == null) {
+      showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            title: Text('Something went wrong'),
+            content: Text(
+                'Please make sure a valid title, amount, date or category is selected '),
+            actions: [
+              CustomButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  data: 'Ok'),
+            ],
+          );
+        },
+      );
+      return;
+    }
   }
 
   _showDatePicker() async {
@@ -40,8 +61,15 @@ class _NewExpenseState extends State<NewExpense> {
   }
 
   @override
+  void dispose() {
+    titleController.dispose();
+    amountController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    //final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
     return Padding(
@@ -95,12 +123,7 @@ class _NewExpenseState extends State<NewExpense> {
                     Navigator.pop(context);
                   },
                   child: Text('cancel')),
-              CustomButton(
-                  onPressed: () {
-                    print(
-                        'Title: $titleController and Amount: $amountController');
-                  },
-                  data: 'Save'),
+              CustomButton(onPressed: _onExpenseSubmitted, data: 'Save'),
             ],
           )
         ],
@@ -108,5 +131,3 @@ class _NewExpenseState extends State<NewExpense> {
     );
   }
 }
-
-_dropDownMenu() {}
