@@ -1,4 +1,5 @@
 import 'package:expense_tracker/widget/listview/expense_list.dart';
+import 'package:expense_tracker/widget/new_expense.dart';
 import 'package:flutter/material.dart';
 
 import '../models/expense_model.dart';
@@ -16,12 +17,23 @@ class _HomeScreenState extends State<HomeScreen> {
     ExpenseModel('Udemy Course', 18, DateTime.now(), Category.leisure),
   ];
 
+  void _modelBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (ctx) {
+          return const NewExpense();
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Expense Flutter App'),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.add))],
+        actions: [
+          IconButton(onPressed: _modelBottomSheet, icon: const Icon(Icons.add))
+        ],
       ),
       body: Column(
         children: [
