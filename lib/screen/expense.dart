@@ -22,8 +22,22 @@ class _HomeScreenState extends State<HomeScreen> {
         context: context,
         isScrollControlled: true,
         builder: (ctx) {
-          return const NewExpense();
+          return NewExpense(
+            expense: _addExpense,
+          );
         });
+  }
+
+  void _addExpense(ExpenseModel expense) {
+    setState(() {
+      _registeredExpenses.add(expense);
+    });
+  }
+
+  void _onRemoveExpense(ExpenseModel expenseModel) {
+    setState(() {
+      _registeredExpenses.remove(expenseModel);
+    });
   }
 
   @override
@@ -40,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Text('Expense Chart'),
           Expanded(
             child: ExpenseList(
+              onRemoveExpense: _onRemoveExpense,
               expenses: _registeredExpenses,
             ),
           ),

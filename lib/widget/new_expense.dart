@@ -1,13 +1,12 @@
 import 'package:expense_tracker/models/expense_model.dart';
 import 'package:flutter/material.dart';
-
 import 'button.dart';
 import 'textfield.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({
-    super.key,
-  });
+  const NewExpense({super.key, required this.expense});
+  final void Function(ExpenseModel expenseModel) expense;
+
   @override
   State<NewExpense> createState() => _NewExpenseState();
 }
@@ -28,21 +27,26 @@ class _NewExpenseState extends State<NewExpense> {
         context: context,
         builder: (ctx) {
           return AlertDialog(
-            title: Text('Something went wrong'),
-            content: Text(
+            title: const Text('Something went wrong'),
+            content: const Text(
                 'Please make sure a valid title, amount, date or category is selected '),
             actions: [
               CustomButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  data: 'Ok'),
+                  data: 'Okay'),
             ],
           );
         },
       );
       return;
     }
+    widget.expense(
+      ExpenseModel(
+          titleController.text, enteredAmount, selectedDate!, selectedCategory),
+    );
+    Navigator.pop(context);
   }
 
   _showDatePicker() async {
@@ -95,7 +99,8 @@ class _NewExpenseState extends State<NewExpense> {
                   ? 'No Date Selected'
                   : formatter.format(selectedDate!)),
               IconButton(
-                  onPressed: _showDatePicker, icon: Icon(Icons.calendar_month)),
+                  onPressed: _showDatePicker,
+                  icon: const Icon(Icons.calendar_month)),
             ],
           ),
           Row(
@@ -117,12 +122,12 @@ class _NewExpenseState extends State<NewExpense> {
                   });
                 },
               ),
-              Spacer(),
+              const Spacer(),
               TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text('cancel')),
+                  child: const Text('cancel')),
               CustomButton(onPressed: _onExpenseSubmitted, data: 'Save'),
             ],
           )
