@@ -1,7 +1,7 @@
 import 'package:expense_tracker/models/expense_model.dart';
 import 'package:flutter/material.dart';
-import 'button.dart';
-import 'textfield.dart';
+import 'custom_widgets/button.dart';
+import 'custom_widgets/textfield.dart';
 
 class NewExpense extends StatefulWidget {
   const NewExpense({super.key, required this.expense});

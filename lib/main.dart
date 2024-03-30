@@ -1,4 +1,5 @@
 import 'package:expense_tracker/screen/expense.dart';
+import 'package:expense_tracker/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,8 +15,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Expense Tracker',
       theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.orangeAccent)),
+        colorScheme: kColorScheme,
+        appBarTheme: kAppBarTheme,
+        cardTheme: kCardTheme,
+        elevatedButtonTheme: kElevatedButtonTheme,
+        iconTheme: kIconTheme,
+        primaryColor: Colors.orangeAccent,
+      ),
       home: const HomeScreen(),
     );
   }

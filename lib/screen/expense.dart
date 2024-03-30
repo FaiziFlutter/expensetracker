@@ -35,13 +35,37 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onRemoveExpense(ExpenseModel expenseModel) {
+    int expenseIndex = _registeredExpenses.indexOf(expenseModel);
     setState(() {
       _registeredExpenses.remove(expenseModel);
     });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 3),
+        content: Text('Item is deleted'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            setState(() {
+              _registeredExpenses.insert(expenseIndex, expenseModel);
+            });
+          },
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = const Center(
+      child: Text('No expenses found. Start adding some!'),
+    );
+    _registeredExpenses.isEmpty
+        ? mainContent
+        : mainContent = ExpenseList(
+            onRemoveExpense: _onRemoveExpense,
+            expenses: _registeredExpenses,
+          );
     return Scaffold(
       appBar: AppBar(
         title: const Text('Expense Flutter App'),
@@ -53,10 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Text('Expense Chart'),
           Expanded(
-            child: ExpenseList(
-              onRemoveExpense: _onRemoveExpense,
-              expenses: _registeredExpenses,
-            ),
+            child: mainContent,
           ),
           Text('hello'),
         ],
