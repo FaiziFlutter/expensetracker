@@ -14,6 +14,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Expense Tracker',
+      themeMode: ThemeMode.system,
+      darkTheme: ThemeData.dark().copyWith(
+        colorScheme: kDarkColorScheme,
+        cardTheme: kDarkCardTheme,
+        elevatedButtonTheme: kDarkElevatedButtonTheme,
+        iconTheme: kDarkIconTheme,
+      ),
       theme: ThemeData(
         colorScheme: kColorScheme,
         appBarTheme: kAppBarTheme,

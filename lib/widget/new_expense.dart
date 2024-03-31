@@ -94,7 +94,7 @@ class _NewExpenseState extends State<NewExpense> {
                 prefixText: '\$',
                 controller: amountController,
               ),
-              Spacer(),
+              const Spacer(),
               Text(selectedDate == null
                   ? 'No Date Selected'
                   : formatter.format(selectedDate!)),

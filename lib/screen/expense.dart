@@ -41,8 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        duration: Duration(seconds: 3),
-        content: Text('Item is deleted'),
+        duration: const Duration(seconds: 3),
+        content: const Text('Item is deleted'),
         action: SnackBarAction(
           label: 'Undo',
           onPressed: () {
@@ -75,11 +75,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
-          Text('Expense Chart'),
+          const Text('Expense Chart'),
           Expanded(
             child: mainContent,
           ),
-          Text('hello'),
+          const Text('hello'),
         ],
       ),
     );
