@@ -1,3 +1,4 @@
+import 'package:expense_tracker/widget/chart/chart.dart';
 import 'package:expense_tracker/widget/listview/expense_list.dart';
 import 'package:expense_tracker/widget/new_expense.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     Widget mainContent = const Center(
       child: Text('No expenses found. Start adding some!'),
     );
@@ -73,14 +76,16 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(onPressed: _modelBottomSheet, icon: const Icon(Icons.add))
         ],
       ),
-      body: Column(
-        children: [
-          const Text('Expense Chart'),
-          Expanded(
-            child: mainContent,
-          ),
-          const Text('hello'),
-        ],
+      body: Padding(
+        padding: EdgeInsets.all(width * 0.04),
+        child: Column(
+          children: [
+            Chart(
+              expenses: _registeredExpenses,
+            ),
+            mainContent,
+          ],
+        ),
       ),
     );
   }

@@ -95,9 +95,13 @@ class _NewExpenseState extends State<NewExpense> {
                 controller: amountController,
               ),
               const Spacer(),
-              Text(selectedDate == null
-                  ? 'No Date Selected'
-                  : formatter.format(selectedDate!)),
+              Text(
+                selectedDate == null
+                    ? 'No Date Selected'
+                    : formatter.format(selectedDate!),
+                style: TextStyle(
+                    fontSize: width * 0.03, fontWeight: FontWeight.w600),
+              ),
               IconButton(
                   onPressed: _showDatePicker,
                   icon: const Icon(Icons.calendar_month)),

@@ -1,3 +1,4 @@
+import 'package:expense_tracker/utils/colors.dart';
 import 'package:flutter/material.dart';
 import '../../models/expense_model.dart';
 
@@ -7,23 +8,44 @@ class ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+
     return Card(
-      child: Column(
-        children: [
-          Text(expenses.title),
-          Row(
-            children: [
-              Text(expenses.amount.toStringAsFixed(2)),
-              const Spacer(),
-              Row(
-                children: [
-                  Icon(categoryIcons[expenses.category]),
-                  Text(expenses.date.toString()),
-                ],
-              )
-            ],
-          )
-        ],
+      child: Padding(
+        padding: EdgeInsets.all(height * 0.01),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              expenses.title,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Row(
+              children: [
+                Text(
+                  '\$${expenses.amount.toStringAsFixed(2)}',
+                  style: TextStyle(
+                      color: darkAccent,
+                      fontSize: width * 0.035,
+                      fontWeight: FontWeight.bold),
+                ),
+                const Spacer(),
+                Row(
+                  children: [
+                    Icon(
+                      categoryIcons[expenses.category],
+                      color: whiteColor,
+                    ),
+                    Text(
+                      expenses.date.toString(),
+                    ),
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
